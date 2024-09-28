@@ -16,7 +16,7 @@ public struct NavigationSheet: View {
     public var body: some View {
         VStack {
             if let nearestPOI = poig {
-                Text("The nearest shelter to you is: \(nearestPOI.address) \n")
+                Text("The nearest shelter to you is: \(nearestPOI.address) \n \n Special Accomodations:")
                     .onAppear {
                         print("extra: \(nearestPOI.extra)")
                         for item in nearestPOI.extra {
@@ -37,7 +37,7 @@ public struct NavigationSheet: View {
                 .buttonStyle(.borderedProminent)
                 .tint(.green)
                 .fontWeight(.black)
-    //            .foregroundStyle(statusTextColor)
+                .foregroundStyle(.white)
             } else {
                 ProgressView()
                     .onAppear {
@@ -56,10 +56,13 @@ public struct NavigationSheet: View {
             }
         }
         .padding()
-        .background(Color.gray)
+        .fontWeight(.black)
+        .foregroundStyle(.green)
+        .background(Color(UIColor.systemGray5))
                 .cornerRadius(15)
                 .shadow(radius: 10)
                 .frame(maxWidth: 300) // Set the width of the popup
+                .multilineTextAlignment(.center)
         
     }
 }
