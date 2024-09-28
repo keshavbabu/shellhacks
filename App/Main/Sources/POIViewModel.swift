@@ -18,6 +18,7 @@ enum Hurricaine: Int, Codable {
 
 struct HurricaineDoc: Codable {
     var hurricaine: Hurricaine
+    var eye: Coordinates
 }
 
 struct Coordinates: Codable {
