@@ -41,13 +41,29 @@ public struct ContentView: View {
         }
     }
     
+    var blurRadius: CGFloat {
+        if vm.hurricaine?.hurricaine == .some(.none) {
+            return 10
+        }
+        return 0
+    }
+    
     public var body: some View {
         Map {
             // stuff in here will be dependant on the state
         }
+        .blur(radius: blurRadius)
         .ignoresSafeArea()
         .overlay {
             // stuff in here will be dependant on the state
+            if vm.hurricaine?.hurricaine == .some(.none) {
+                            Text("For more information visit https://www.nhc.noaa.gov/")
+                              .fontWeight(.black)
+                              .foregroundStyle(statusTextColor)
+                              .padding(10)
+                              .background(RoundedRectangle(cornerRadius: 12).fill(Color(UIColor.darkGray)))
+                              .padding()
+                        }
         }
         .overlay(alignment: .top) {
             HStack {
@@ -55,7 +71,7 @@ public struct ContentView: View {
                   .fontWeight(.black)
                   .foregroundStyle(statusTextColor)
                   .padding(10)
-                  .background(RoundedRectangle(cornerRadius: 12).fill(Color(UIColor.systemGray5)))
+                  .background(RoundedRectangle(cornerRadius: 12).fill(Color(UIColor.darkGray)))
                   .padding()
                 Spacer()
                 if let hurricaine = vm.hurricaine {
