@@ -32,6 +32,10 @@ enum Status: Int, Codable {
     case open = 2
 }
 
+enum ExtraType: String, Codable {
+    case petFriendly = "pet friendly"
+}
+
 struct POI: Codable, Identifiable {
     let id = UUID().uuidString
     let address: String
@@ -39,7 +43,7 @@ struct POI: Codable, Identifiable {
     let coordinates: Coordinates
     let status: Status
     let medicalEquipment: [String]
-    let extra: [String]
+    let extra: [ExtraType]
     
     
     enum CodingKeys: String, CodingKey {
