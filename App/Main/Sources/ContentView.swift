@@ -84,7 +84,7 @@ public struct ContentView: View {
                           .fontWeight(.black)
                           .foregroundStyle(statusTextColor)
                           .padding(10)
-                          .background(RoundedRectangle(cornerRadius: 12).fill(Color(UIColor.systemGray5)))
+                          .background(RoundedRectangle(cornerRadius: 12).fill(Color(UIColor.darkGray)))
                           .padding()
                     }
                 }

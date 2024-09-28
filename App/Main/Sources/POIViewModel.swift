@@ -39,7 +39,7 @@ class POIViewModel {
                 
                 switch doc {
                 case .success(let doc):
-                    self.hurricaine = doc
+                    self.hurricaine = HurricaineDoc(hurricaine: .none)
                 case .failure(let error):
                     print("decoding error: \(error)")
                 }
