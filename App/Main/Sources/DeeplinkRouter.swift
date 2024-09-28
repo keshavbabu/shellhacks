@@ -8,7 +8,7 @@ import Observation
 
 @Observable
 public class DeeplinkRouter {
-    public var notificationTapped = true
+    public var notificationTapped = false
     
     public init() {}
 }

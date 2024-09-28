@@ -69,7 +69,6 @@ public struct ContentView: View {
                         print("Appearing \(poi.name)")
                     }
                 }
-                
             }
         }
         .overlay(alignment: .bottomTrailing) {
@@ -82,36 +81,41 @@ public struct ContentView: View {
         .mapScope(mapScope)
         .blur(radius: blurRadius)
         .overlay {
-            // stuff in here will be dependant on the state
             if vm.hurricaine?.hurricaine == .some(.none) {
-                            Text("For more information visit https://www.nhc.noaa.gov/")
-                              .fontWeight(.black)
-                              .foregroundStyle(statusTextColor)
-                              .padding(10)
-                              .background(RoundedRectangle(cornerRadius: 12).fill(Color(UIColor.darkGray)))
-                              .padding()
-                        }
+                Text("For more information visit https://www.nhc.noaa.gov/")
+                    .fontWeight(.black)
+                    .foregroundStyle(statusTextColor)
+                    .padding(10)
+                    .background(RoundedRectangle(cornerRadius: 12).fill(Color(UIColor.darkGray)))
+                    .padding()
+            }
         }
         .overlay(alignment: .top) {
             HStack {
                 Text(statusText)
-                  .fontWeight(.black)
-                  .foregroundStyle(statusTextColor)
-                  .padding(10)
-                  .background(RoundedRectangle(cornerRadius: 12).fill(Color(UIColor.darkGray)))
-                  .padding()
+                    .fontWeight(.black)
+                    .foregroundStyle(statusTextColor)
+                    .padding(10)
+                    .background(RoundedRectangle(cornerRadius: 12).fill(Color(UIColor.darkGray)))
+                    .padding()
                 Spacer()
                 if let hurricaine = vm.hurricaine {
                     switch hurricaine.hurricaine {
                     case .none:
                         EmptyView()
                     case .incoming, .here:
-                        Text("10 mi")
-                          .fontWeight(.black)
-                          .foregroundStyle(statusTextColor)
-                          .padding(10)
-                          .background(RoundedRectangle(cornerRadius: 12).fill(Color(UIColor.darkGray)))
-                          .padding()
+                        if let location = vm.location, let hurricaneCoordinates = vm.hurricaine?.eye {
+                            let userLocation = CLLocation(latitude: location.latitude, longitude: location.longitude)
+                            let hurricaneLocation = CLLocation(latitude: hurricaneCoordinates.latitude, longitude: hurricaneCoordinates.longitude)
+                            let distanceInMeters = userLocation.distance(from: hurricaneLocation)
+                            let distanceInMiles = distanceInMeters / 1609.344
+                            Text(String(format: "%.2f mi", distanceInMiles))
+                                .fontWeight(.black)
+                                .foregroundStyle(statusTextColor)
+                                .padding(10)
+                                .background(RoundedRectangle(cornerRadius: 12).fill(Color(UIColor.darkGray)))
+                                .padding()
+                        }
                     }
                 }
             }
@@ -130,6 +134,6 @@ public struct ContentView: View {
     }
 }
 
-#Preview {
-    ContentView()
-}
+//#Preview {
+//    ContentView()
+//}
