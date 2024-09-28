@@ -16,14 +16,14 @@ public struct NavigationSheet: View {
     public var body: some View {
         VStack(alignment: .leading) {
             if let nearestPOI = poig {
-                Text("The nearest shelter to you is: \(nearestPOI.address) \n \n Special Accomodations:")
+                Text("The nearest shelter to you is: \(nearestPOI.address)")
                     .onAppear {
                         print("extra: \(nearestPOI.extra)")
                         for item in nearestPOI.extra {
                             print("extra: \(item)")
                         }
                     }
-                Text("Accommodations: ")
+                Text("Special Accommodations: ")
                 ForEach(nearestPOI.extra, id: \.self) { item in
                     HStack {
                         switch item {
