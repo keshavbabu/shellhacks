@@ -11,7 +11,7 @@ struct CollabView: View {
     var body: some View {
         VStack {
             ProgressView()
-            Text("Finding other Evacuees...").bold()
+            Text("Finding other Evacuees...").font(.title).bold()
         }
     }
 }

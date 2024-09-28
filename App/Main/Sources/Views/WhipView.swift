@@ -6,7 +6,23 @@
 //
 import SwiftUI
 struct WhipView: View {
+    @Environment(UserViewModel.self) var userViewModel: UserViewModel
+    @State var Friends: [Evacuee] = []
+    
     var body: some View {
-        Text("Whip View")
+        VStack {
+            ProgressView()
+            Text("Finding Whip...").font(.title).bold()
+//                List {
+//                    ForEach(Friends) { friend in
+//                        Text(friend.name)
+//                    }
+//                }
+        }
+        .padding()
+        .onAppear {
+            userViewModel.fetchUsers()
+        }
     }
+    
 }

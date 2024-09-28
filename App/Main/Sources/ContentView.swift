@@ -19,7 +19,6 @@ public struct ContentView: View {
                             isPresented = true
                         }
                         .sheet(isPresented: $isPresented) {
-                            
                             switch user.status {
                             case .collaborating:
                                 CollabView().presentationDetents([.fraction(0.40)])
@@ -30,7 +29,6 @@ public struct ContentView: View {
                             default:
                                 EmptyView()
                             }
-                            
                         }
                 }
             } else {

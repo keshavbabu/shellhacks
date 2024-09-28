@@ -23,7 +23,7 @@ struct Coordinates: Decodable {
     let longitude: Double
 }
 
-struct Evacuee: Decodable {
+struct Evacuee: Decodable, Identifiable {
     let id: String
     let name: String
     let pfp: String
