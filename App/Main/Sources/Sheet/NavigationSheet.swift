@@ -16,13 +16,16 @@ public struct NavigationSheet: View {
     public var body: some View {
         VStack(alignment: .leading) {
             if let nearestPOI = poig {
-                Text("The nearest shelter to you is: \(nearestPOI.address)")
+//                Spacer()
+                Text("Evacuate Now").font(.title).bold().multilineTextAlignment(.center)
+                Text("Address: \(nearestPOI.address)").font(.subheadline).bold().multilineTextAlignment(.center)
                     .onAppear {
                         print("extra: \(nearestPOI.extra)")
                         for item in nearestPOI.extra {
                             print("extra: \(item)")
                         }
                     }
+                Text("Nearest Shelter").font(.subheadline).fontWeight(.light)
                 Text("Special Accommodations: ")
                 ForEach(nearestPOI.extra, id: \.self) { item in
                     HStack {
@@ -33,7 +36,7 @@ public struct NavigationSheet: View {
                         Text(item.rawValue)
                     }
                 }
-                
+                Spacer()
                 HStack {
                     Spacer()
                     Button("Start Navigation") {
@@ -68,11 +71,8 @@ public struct NavigationSheet: View {
         }
         .padding()
         .fontWeight(.black)
-        .foregroundStyle(.green)
+        .foregroundStyle(.white)
         .background(Color(UIColor.systemGray5))
-                .cornerRadius(15)
-                .shadow(radius: 10)
-                .frame(maxWidth: 300) // Set the width of the popup
                 .multilineTextAlignment(.center)
         
     }

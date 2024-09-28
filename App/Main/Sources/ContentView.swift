@@ -153,7 +153,7 @@ public struct ContentView: View {
         .sheet(isPresented: $showingNav) {
             if let location = vm.location, !vm.poi.isEmpty {
                 NavigationSheet(location: location, poi: vm.poi)
-                    .presentationDetents([.medium])
+                    .presentationDetents([.fraction(0.33)])
             } else {
                 ProgressView()
             }
