@@ -71,8 +71,11 @@ public struct ContentView: View {
                         
                     }
                 }
+        .mapControls {
+                    MapUserLocationButton()
+                        .controlSize(.large)
+                }
         .blur(radius: blurRadius)
-        .ignoresSafeArea()
         .overlay {
             // stuff in here will be dependant on the state
             if vm.hurricaine?.hurricaine == .some(.none) {
@@ -84,7 +87,7 @@ public struct ContentView: View {
                               .padding()
                         }
         }
-        .overlay(alignment: .top) {
+        .overlay(alignment: .bottomTrailing) {
             HStack {
                 Text(statusText)
                   .fontWeight(.black)
