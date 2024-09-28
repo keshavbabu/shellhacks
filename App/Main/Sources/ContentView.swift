@@ -12,11 +12,11 @@ public struct ContentView: View {
     @Environment(DeeplinkRouter.self) var deeplinkRouter: DeeplinkRouter
     @State var vm = POIViewModel()
     @State private var cameraPosition: MapCameraPosition = .userLocation(fallback: .automatic)
-    
+    @State private var showSheet: Bool = false
     @Namespace var mapScope
     
     @State var showingNav = false
-
+    @State var selectedPOI: POI?
     public init() {}
     
     var statusText: String {
@@ -61,15 +61,21 @@ public struct ContentView: View {
                 Annotation(poi.name, coordinate: CLLocationCoordinate2D(latitude: poi.coordinates.latitude, longitude: poi.coordinates.longitude)) {
                     VStack {
                         Image(systemName: "mappin.circle.fill")
-                            .foregroundStyle(.red)
+                            .foregroundStyle(statusTextColor)
                             .font(.title)
+                            .onTapGesture {
+                                selectedPOI = poi
+                                }
                     }
                     .onAppear {
                         print("Appearing \(poi.name)")
                     }
                 }
+                
             }
+            
         }
+        
         .overlay(alignment: .bottomTrailing) {
             HStack {
                 Spacer()
@@ -128,8 +134,19 @@ public struct ContentView: View {
             }
         }
         .overlay {
-            if let location = vm.location, !vm.poi.isEmpty {
-                NavigationSheet(location: location, poi: vm.poi)
+            if showingNav {
+                if let location = vm.location, !vm.poi.isEmpty {
+                    NavigationSheet(location: location, poi: vm.poi)
+                        .presentationDetents([.medium])
+                } else {
+                    ProgressView()
+                }
+            }
+        }
+        .sheet(item: $selectedPOI) { poi in
+            if let location = vm.location {
+                let coordinates = Coordinates(latitude: location.latitude, longitude: location.longitude)
+                NavigationSheet(location: coordinates, poi: [poi])
                     .presentationDetents([.medium])
             } else {
                 ProgressView()

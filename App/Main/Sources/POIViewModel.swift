@@ -32,13 +32,15 @@ enum Status: Int, Codable {
     case open = 2
 }
 
-struct POI: Codable {
+struct POI: Codable, Identifiable {
+    let id = UUID().uuidString
     let address: String
     let name: String
     let coordinates: Coordinates
     let status: Status
     let medicalEquipment: [String]
     let extra: [String]
+    
     
     enum CodingKeys: String, CodingKey {
         case address
