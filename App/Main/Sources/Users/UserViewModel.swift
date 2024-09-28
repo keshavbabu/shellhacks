@@ -11,6 +11,10 @@ import Observation
 import MapKit
 import Foundation
 
+struct Constants {
+    static let userID = "J5wzQpq1QIexIGi7D2mJ"
+}
+
 enum EvacuateState: Int, Codable {
     case evacuate = 0
     case collaborating = 1
@@ -65,7 +69,7 @@ public class UserViewModel: NSObject, CLLocationManagerDelegate {
         manager.delegate = self
         manager.requestWhenInUseAuthorization()
         manager.startUpdatingLocation()
-        Firestore.firestore().collection("users").document("Dq7BnKSxkF34duMPHNb4").addSnapshotListener { snapshot, error in
+        Firestore.firestore().collection("users").document(Constants.userID).addSnapshotListener { snapshot, error in
             if let snapshot = snapshot {
                 let user = try! snapshot.data(as: User.self)
                 self.userData = user

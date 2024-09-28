@@ -39,7 +39,7 @@ struct EvacView: View {
             request.httpMethod = "POST"
             
             let json: [String: Any] = [
-                "user_id": "Dq7BnKSxkF34duMPHNb4",
+                "user_id": Constants.userID,
                 "coordinates": [
                     "longitude": userViewModel.location?.longitude,
                     "latitude": userViewModel.location?.latitude
