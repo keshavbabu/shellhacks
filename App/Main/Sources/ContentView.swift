@@ -6,6 +6,7 @@
 //
 
 import SwiftUI
+import MapKit
 
 public struct ContentView: View {
     @State var vm = POIViewModel()
@@ -16,13 +17,11 @@ public struct ContentView: View {
         Group {
             if let hurricaine = vm.hurricaine {
                 Group {
-                    switch hurricaine.hurricaine {
-                    case .none:
-                        SafeView()
-                    case .incoming:
-                        WarningView()
-                    case .here:
-                        DangerView()
+                    Map {
+                        // stuff in here will be dependant on the state
+                    }
+                    .overlay {
+                        // stuff in here will be dependant on the state
                     }
                 }
             }
