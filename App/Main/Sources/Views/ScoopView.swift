@@ -1,3 +1,9 @@
+//
+//  WhipView.swift
+//  Main
+//
+//  Created by Shaheer Khan on 9/28/24.
+//
 import SwiftUI
 
 struct ScoopView: View {
@@ -16,8 +22,6 @@ struct ScoopView: View {
                 }
                 Divider()
                 List {
-                    
-                    // Display picked-up friends first
                     ForEach(pickedUpFriends) { friend in
                         HStack {
                             AsyncImage(url: URL(string: friend.pfp)) { phase in
@@ -37,7 +41,7 @@ struct ScoopView: View {
                                     EmptyView()
                                 }
                             }
-                            .padding(.trailing, 16) // Padding between image and text
+                            .padding(.trailing, 16)
                             VStack(alignment: .leading) {
                                 Text(friend.name)
                                     .font(.title3)
@@ -50,7 +54,6 @@ struct ScoopView: View {
                         .padding(.vertical, 8)
                     }
 
-                    // Display waiting friends after picked-up friends
                     ForEach(waitingFriends) { friend in
                         HStack {
                             AsyncImage(url: URL(string: friend.pfp)) { phase in
@@ -70,7 +73,7 @@ struct ScoopView: View {
                                     EmptyView()
                                 }
                             }
-                            .padding(.trailing, 16) // Padding between image and text
+                            .padding(.trailing, 16) 
                             VStack(alignment: .leading) {
                                 Text(friend.name)
                                     .font(.title3)
