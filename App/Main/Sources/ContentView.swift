@@ -12,6 +12,8 @@ public struct ContentView: View {
     @Environment(DeeplinkRouter.self) var deeplinkRouter: DeeplinkRouter
     @State var vm = POIViewModel()
     @State private var cameraPosition: MapCameraPosition = .userLocation(fallback: .automatic)
+    
+    @Namespace var mapScope
 
     public init() {}
     
@@ -52,29 +54,32 @@ public struct ContentView: View {
     
     public var body: some View {
         @Bindable var deeplink = self.deeplinkRouter
-        
-        Map(position: $cameraPosition) {
-                    ForEach(vm.poi, id: \.name) { poi in
-                        Annotation(poi.name, coordinate: CLLocationCoordinate2D(latitude: poi.coordinates.latitude, longitude: poi.coordinates.longitude)) {
-                            VStack {
-                                Image(systemName: "mappin.circle.fill")
-                                    .foregroundStyle(.red)
-                                    .font(.title)
-                                Text(poi.name)
-                                    .font(.caption)
-                                    .foregroundColor(.primary)
-                            }
-                            .onAppear {
-                                print("Appearing \(poi.name)")
-                            }
-                        }
-                        
+        Map(position: $cameraPosition, scope: mapScope) {
+            ForEach(vm.poi, id: \.name) { poi in
+                Annotation(poi.name, coordinate: CLLocationCoordinate2D(latitude: poi.coordinates.latitude, longitude: poi.coordinates.longitude)) {
+                    VStack {
+                        Image(systemName: "mappin.circle.fill")
+                            .foregroundStyle(.red)
+                            .font(.title)
+                        Text(poi.name)
+                            .font(.caption)
+                            .foregroundColor(.primary)
+                    }
+                    .onAppear {
+                        print("Appearing \(poi.name)")
                     }
                 }
-        .mapControls {
-                    MapUserLocationButton()
-                        .controlSize(.large)
-                }
+                
+            }
+        }
+        .overlay(alignment: .bottomTrailing) {
+            HStack {
+                Spacer()
+                MapUserLocationButton(scope: mapScope)
+            }
+            .padding()
+        }
+        .mapScope(mapScope)
         .blur(radius: blurRadius)
         .overlay {
             // stuff in here will be dependant on the state
@@ -87,7 +92,7 @@ public struct ContentView: View {
                               .padding()
                         }
         }
-        .overlay(alignment: .bottomTrailing) {
+        .overlay(alignment: .top) {
             HStack {
                 Text(statusText)
                   .fontWeight(.black)
