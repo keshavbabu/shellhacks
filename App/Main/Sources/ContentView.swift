@@ -14,6 +14,8 @@ public struct ContentView: View {
     @State private var cameraPosition: MapCameraPosition = .userLocation(fallback: .automatic)
     
     @Namespace var mapScope
+    
+    @State var showingNav = false
 
     public init() {}
     
@@ -119,9 +121,14 @@ public struct ContentView: View {
         }
         .onAppear {
             vm.fetchData()
+            if deeplink.notificationTapped {
+                withAnimation(.easeIn(duration: 1.0)) {
+                    showingNav = true
+                }
+            }
         }
-        .sheet(isPresented: $deeplink.notificationTapped) {
-            if let location = vm.location {
+        .overlay {
+            if let location = vm.location, !vm.poi.isEmpty {
                 NavigationSheet(location: location, poi: vm.poi)
                     .presentationDetents([.medium])
             } else {
