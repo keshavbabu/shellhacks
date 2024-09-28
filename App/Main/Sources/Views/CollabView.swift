@@ -11,7 +11,6 @@ struct CollabView: View {
     @Environment(UserViewModel.self) var userViewModel: UserViewModel
     var body: some View {
         VStack (spacing: 20) {
-            ProgressView()
             Text("Finding other Evacuees...").font(.title).bold()
             
         }
