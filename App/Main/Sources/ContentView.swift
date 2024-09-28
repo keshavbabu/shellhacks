@@ -9,15 +9,25 @@ import SwiftUI
 
 public struct ContentView: View {
     @State var vm = POIViewModel()
+    
     public init() {}
+    
     public var body: some View {
-        VStack {
-            Image(systemName: "globe")
-                .imageScale(.large)
-                .foregroundStyle(.tint)
-            Text(vm.hurricaine?.hurricaine.rawValue.description ?? "bruh")
+        Group {
+            if let hurricaine = vm.hurricaine {
+                VStack {
+                    switch hurricaine.hurricaine {
+                    case .none:
+                        SafeView()
+                    case .incoming:
+                        WarningView()
+                    case .here:
+                        DangerView()
+                    }
+                }
+                .padding()
+            }
         }
-        .padding()
         .onAppear {
             vm.fetchData()
         }

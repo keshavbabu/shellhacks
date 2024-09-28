@@ -12,7 +12,7 @@ import Observation
 enum Hurricaine: Int, Codable {
     case none = 0
     case incoming = 1
-    case her = 2
+    case here = 2
 }
 
 struct HurricaineDoc: Codable {
