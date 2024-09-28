@@ -24,7 +24,27 @@ struct WhipView: View {
             
             List {
                 ForEach(Friends) { friend in
-                    Text(friend.name)
+                    HStack {
+                        AsyncImage(url: URL(string: friend.pfp)) { phase in
+                            switch phase {
+                            case .empty:
+                                ProgressView()
+                                    .frame(width: 75, height: 90)
+                            case .success(let image):
+                                image
+                                    .resizable()
+                                    .frame(width: 75, height: 90)
+                                    .clipShape(Circle())
+                            case .failure:
+                                Image(systemName: "photo")
+                                    .font(.largeTitle)
+                            @unknown default:
+                                EmptyView()
+                            }
+                        }
+                        .padding()
+                        Text(friend.name)
+                    }
                 }
             }
             .listStyle(PlainListStyle())
