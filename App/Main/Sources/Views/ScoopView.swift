@@ -18,12 +18,12 @@ struct ScoopView: View {
                 if let timeLeft = user.timeToPickUp {
                     Text("Be Ready in \(timeLeft) minutes")
                         .bold()
-                        .font(.headline)
-                        .padding()
+                        .font(.title3)
+                        
                 }
                 List {
                     if !pickedUpFriends.isEmpty {
-                        Section(header: Text("Picked Up")) {
+                        Section(header: Text("Picked Up").foregroundColor(Color.green).font(.headline)) {
                             ForEach(pickedUpFriends) { friend in
                                 HStack {
                                     AsyncImage(url: URL(string: friend.pfp)) { phase in
@@ -51,7 +51,7 @@ struct ScoopView: View {
                     }
 
                     if !waitingFriends.isEmpty {
-                        Section(header: Text("Waiting")) {
+                        Section(header: Text("Waiting").foregroundColor(Color.red)) {
                             ForEach(waitingFriends) { friend in
                                 HStack {
                                     AsyncImage(url: URL(string: friend.pfp)) { phase in
