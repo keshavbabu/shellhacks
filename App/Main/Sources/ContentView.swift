@@ -24,7 +24,7 @@ public struct ContentView: View {
                                 ThreeSegmentLoadingBar(progress: progress)
                                 switch user.status {
                                 case .collaborating:
-                                    CollabView().presentationDetents([.fraction(0.40)])
+                                    CollabView().padding().presentationDetents([.fraction(0.40)])
                                         .onAppear {
                                             withAnimation(.easeInOut(duration: 0.5)) {
                                                 if progress < 1.0 {
@@ -35,7 +35,7 @@ public struct ContentView: View {
                                             }
                                         }
                                 case .whipping:
-                                    WhipView().presentationDetents([.fraction(0.40)])
+                                    WhipView().padding().presentationDetents([.fraction(0.40)])
                                         .onAppear {
                                             withAnimation(.easeInOut(duration: 0.5)) {
                                                 if progress < 1.0 {
@@ -46,7 +46,7 @@ public struct ContentView: View {
                                             }
                                         }
                                 case .scooping:
-                                    ScoopView().presentationDetents([.fraction(0.40)])
+                                    ScoopView().padding().presentationDetents([.fraction(0.40)])
                                         .onAppear {
                                             withAnimation(.easeInOut(duration: 0.5)) {
                                                 if progress < 1.0 {
@@ -59,7 +59,8 @@ public struct ContentView: View {
                                 default:
                                     EmptyView()
                             }
-                            }
+                                Spacer()
+                            }.padding()
                         }
                 }
             } else {
