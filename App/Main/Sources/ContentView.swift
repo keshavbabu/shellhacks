@@ -38,7 +38,7 @@ public struct ContentView: View {
                                             }
                                         }
                                 case .scooping:
-                                    ScoopView().padding().presentationDetents([.fraction(0.40)])
+                                    ScoopView().padding().presentationDetents([.fraction(0.50)])
                                         .onAppear {
                                             withAnimation(.easeInOut(duration: 0.5)) {
                                                 progress = 3.0 / 3.0
