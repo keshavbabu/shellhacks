@@ -33,12 +33,14 @@ struct POI: Codable {
 }
 
 @Observable
-class POIViewModel {
+class POIViewModel: NSObject, CLLocationManagerDelegate {
     var hurricaine: HurricaineDoc? = nil
     var poi: [POI] = []
+    var location: Coordinates? = nil
     private let manager = CLLocationManager()
     
     func fetchData() {
+        manager.delegate = self
         manager.requestWhenInUseAuthorization()
         Firestore.firestore().collection("0").document("0")
             .addSnapshotListener { snapshot, error in
@@ -79,5 +81,30 @@ class POIViewModel {
             }
         }
         
+    }
+    
+    // Location manager shit
+    func locationManager(
+        _ manager: CLLocationManager,
+        didUpdateLocations locations: [CLLocation]
+    ) {
+        print("bruh; \(locations)")
+        if let location = locations.last {
+            self.location = Coordinates(latitude: location.coordinate.latitude, longitude: location.coordinate.longitude)
+            manager.stopUpdatingLocation()
+        }
+    }
+    
+    func locationManager(_ manager: CLLocationManager, didFailWithError error: any Error) {
+        print("bruh: \(error)")
+    }
+    
+    func locationManager(_ manager: CLLocationManager, didChangeAuthorization status: CLAuthorizationStatus) {
+        switch status {
+        case .restricted,.denied,.notDetermined:
+            print("failed")
+        default:
+            manager.startUpdatingLocation()
+        }
     }
 }

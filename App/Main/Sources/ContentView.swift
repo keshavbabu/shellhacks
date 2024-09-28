@@ -112,8 +112,12 @@ public struct ContentView: View {
             vm.fetchData()
         }
         .sheet(isPresented: $deeplink.notificationTapped) {
-            NavigationSheet()
-                .presentationDetents([.medium])
+            if let location = vm.location {
+                NavigationSheet(location: location, poi: vm.poi)
+                    .presentationDetents([.medium])
+            } else {
+                ProgressView()
+            }
         }
     }
 }
