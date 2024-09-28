@@ -86,7 +86,7 @@ public struct ContentView: View {
                     .fontWeight(.black)
                     .foregroundStyle(statusTextColor)
                     .padding(10)
-                    .background(RoundedRectangle(cornerRadius: 12).fill(Color(UIColor.darkGray)))
+                    .background(RoundedRectangle(cornerRadius: 12).fill(Color(UIColor.systemGray5)))
                     .padding()
             }
         }
@@ -96,7 +96,7 @@ public struct ContentView: View {
                     .fontWeight(.black)
                     .foregroundStyle(statusTextColor)
                     .padding(10)
-                    .background(RoundedRectangle(cornerRadius: 12).fill(Color(UIColor.darkGray)))
+                    .background(RoundedRectangle(cornerRadius: 12).fill(Color(UIColor.systemGray5)))
                     .padding()
                 Spacer()
                 if let hurricaine = vm.hurricaine {
@@ -113,7 +113,7 @@ public struct ContentView: View {
                                 .fontWeight(.black)
                                 .foregroundStyle(statusTextColor)
                                 .padding(10)
-                                .background(RoundedRectangle(cornerRadius: 12).fill(Color(UIColor.darkGray)))
+                                .background(RoundedRectangle(cornerRadius: 12).fill(Color(UIColor.systemGray5)))
                                 .padding()
                         }
                     }

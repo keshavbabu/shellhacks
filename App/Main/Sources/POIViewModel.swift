@@ -26,10 +26,26 @@ struct Coordinates: Codable {
     let longitude: Double
 }
 
+enum Status: Int, Codable {
+    case closed = 0
+    case preparing = 1
+    case open = 2
+}
+
 struct POI: Codable {
     let address: String
     let name: String
     let coordinates: Coordinates
+    let status: Status
+    let medicalEquipment: [String]
+    
+    enum CodingKeys: String, CodingKey {
+        case address
+        case name
+        case coordinates
+        case status
+        case medicalEquipment = "medical_equipment"
+    }
 }
 
 @Observable
@@ -75,10 +91,10 @@ class POIViewModel: NSObject, CLLocationManagerDelegate {
                 case .success(let poi):
                     return poi
                 case .failure(let error):
-                    print(error)
                     return nil
                 }
             }
+            print("good: \(self.poi.count)")
         }
         
     }
