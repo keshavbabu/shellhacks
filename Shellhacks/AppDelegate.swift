@@ -8,8 +8,11 @@
 import FirebaseCore
 import SwiftUI
 import FirebaseMessaging
+import Main
 
 class AppDelegate: NSObject, UIApplicationDelegate {
+    public var deeplinkRouter: DeeplinkRouter?
+    
   func application(
     _ application: UIApplication,
     didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey : Any]? = nil
@@ -75,6 +78,8 @@ extension AppDelegate: UNUserNotificationCenterDelegate {
         didReceive response: UNNotificationResponse,
         withCompletionHandler completionHandler: @escaping () -> Void
     ) {
+        print("notif: \(response)")
+        deeplinkRouter?.notificationTapped = true
         // deep linking here when a notification is tapped
         completionHandler()
     }

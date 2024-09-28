@@ -9,6 +9,7 @@ import SwiftUI
 import MapKit
 
 public struct ContentView: View {
+    @Environment(DeeplinkRouter.self) var deeplinkRouter: DeeplinkRouter
     @State var vm = POIViewModel()
     @State private var cameraPosition: MapCameraPosition = .userLocation(fallback: .automatic)
 
@@ -50,6 +51,8 @@ public struct ContentView: View {
     }
     
     public var body: some View {
+        @Bindable var deeplink = self.deeplinkRouter
+        
         Map(position: $cameraPosition) {
                     ForEach(vm.poi, id: \.name) { poi in
                         Annotation(poi.name, coordinate: CLLocationCoordinate2D(latitude: poi.coordinates.latitude, longitude: poi.coordinates.longitude)) {
@@ -107,6 +110,10 @@ public struct ContentView: View {
         }
         .onAppear {
             vm.fetchData()
+        }
+        .sheet(isPresented: $deeplink.notificationTapped) {
+            NavigationSheet()
+                .presentationDetents([.medium])
         }
     }
 }
