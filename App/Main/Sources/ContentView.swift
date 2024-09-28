@@ -14,17 +14,14 @@ public struct ContentView: View {
     public init() {}
     
     public var body: some View {
-        Group {
-            if let hurricaine = vm.hurricaine {
-                Group {
-                    Map {
-                        // stuff in here will be dependant on the state
-                    }
-                    .overlay {
-                        // stuff in here will be dependant on the state
-                    }
-                }
-            }
+        Map {
+            // stuff in here will be dependant on the state
+        }
+        .overlay {
+            // stuff in here will be dependant on the state
+        }
+        .overlay(alignment: .top) {
+            
         }
         .ignoresSafeArea()
         .onAppear {
