@@ -14,7 +14,7 @@ public struct NavigationSheet: View {
     let poi: [POI]
     
     public var body: some View {
-        VStack {
+        VStack(alignment: .leading) {
             if let nearestPOI = poig {
                 Text("The nearest shelter to you is: \(nearestPOI.address) \n")
                     .onAppear {
@@ -23,20 +23,30 @@ public struct NavigationSheet: View {
                             print("extra: \(item)")
                         }
                     }
-                
+                Text("Accommodations: ")
                 ForEach(nearestPOI.extra, id: \.self) { item in
-                    Text(item)
-                }
-                
-                Button("Start Navigation") {
-                    let url = URL(string: "maps://?saddr=&daddr=\(nearestPOI.coordinates.latitude),\(nearestPOI.coordinates.longitude)")
-                    if let url = url, UIApplication.shared.canOpenURL(url) {
-                      UIApplication.shared.open(url, options: [:], completionHandler: nil)
+                    HStack {
+                        switch item {
+                        case .petFriendly:
+                            Image(systemName: "dog.fill")
+                        }
+                        Text(item.rawValue)
                     }
                 }
-                .buttonStyle(.borderedProminent)
-                .tint(.green)
-                .fontWeight(.black)
+                
+                HStack {
+                    Spacer()
+                    Button("Start Navigation") {
+                        let url = URL(string: "maps://?saddr=&daddr=\(nearestPOI.coordinates.latitude),\(nearestPOI.coordinates.longitude)")
+                        if let url = url, UIApplication.shared.canOpenURL(url) {
+                          UIApplication.shared.open(url, options: [:], completionHandler: nil)
+                        }
+                    }
+                    .buttonStyle(.borderedProminent)
+                    .tint(.green)
+                    .fontWeight(.black)
+                    Spacer()
+                }
     //            .foregroundStyle(statusTextColor)
             } else {
                 ProgressView()
