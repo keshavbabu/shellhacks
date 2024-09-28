@@ -2,6 +2,8 @@
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
 <dict>
+	<key>FirebaseAppDelegateProxyEnabled</key>
+	<false/>
 	<key>API_KEY</key>
 	<string>AIzaSyCAO4z8AjXNQajXKlsOpP4clvY2EJV2NvA</string>
 	<key>GCM_SENDER_ID</key>
