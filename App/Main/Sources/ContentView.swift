@@ -15,7 +15,7 @@ public struct ContentView: View {
     public var body: some View {
         Group {
             if let hurricaine = vm.hurricaine {
-                VStack {
+                Group {
                     switch hurricaine.hurricaine {
                     case .none:
                         SafeView()
@@ -25,9 +25,9 @@ public struct ContentView: View {
                         DangerView()
                     }
                 }
-                .padding()
             }
         }
+        .ignoresSafeArea()
         .onAppear {
             vm.fetchData()
         }
