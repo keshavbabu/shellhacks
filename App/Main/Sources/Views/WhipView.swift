@@ -12,7 +12,7 @@ struct WhipView: View {
 
     var body: some View {
         VStack(spacing: 2) {
-            Text("Finding Whip...")
+            Text("Finding a Driver...")
                 .font(.title)
                 .bold()
                 .padding()
@@ -21,7 +21,7 @@ struct WhipView: View {
                 .frame(maxWidth: .infinity, alignment: .leading)
                 .padding(.leading)
                 .font(.title2)
-            
+            Divider()
             List {
                 ForEach(Friends) { friend in
                     HStack {
