@@ -4,7 +4,7 @@ import MapKit
 public struct ContentView: View {
     @Environment(UserViewModel.self) var userViewModel: UserViewModel
     @State private var isPresented: Bool = true
-    @State private var progress: Double = 1.0
+    @State private var progress: Double = 0
     
     public init() {}
     
@@ -27,33 +27,21 @@ public struct ContentView: View {
                                     CollabView().padding().presentationDetents([.fraction(0.40)])
                                         .onAppear {
                                             withAnimation(.easeInOut(duration: 0.5)) {
-                                                if progress < 1.0 {
-                                                    progress += 1.0 / 3.0
-                                                } else {
-                                                    progress = 0.0 // Reset after completion
-                                                }
+                                                progress = 1.0 / 3.0
                                             }
                                         }
                                 case .whipping:
                                     WhipView().padding().presentationDetents([.fraction(0.40)])
                                         .onAppear {
                                             withAnimation(.easeInOut(duration: 0.5)) {
-                                                if progress < 1.0 {
-                                                    progress += 1.0 / 3.0
-                                                } else {
-                                                    progress = 0.0 // Reset after completion
-                                                }
+                                                progress = 2.0 / 3.0
                                             }
                                         }
                                 case .scooping:
                                     ScoopView().padding().presentationDetents([.fraction(0.40)])
                                         .onAppear {
                                             withAnimation(.easeInOut(duration: 0.5)) {
-                                                if progress < 1.0 {
-                                                    progress += 1.0 / 3.0
-                                                } else {
-                                                    progress = 0.0 // Reset after completion
-                                                }
+                                                progress = 3.0 / 3.0
                                             }
                                         }
                                 default:
