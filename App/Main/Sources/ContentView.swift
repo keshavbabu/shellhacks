@@ -10,7 +10,8 @@ import MapKit
 
 public struct ContentView: View {
     @State var vm = POIViewModel()
-    
+    @State private var cameraPosition: MapCameraPosition = .userLocation(fallback: .automatic)
+
     public init() {}
     
     var statusText: String {
@@ -49,10 +50,25 @@ public struct ContentView: View {
     }
     
     public var body: some View {
-        Map {
-            // stuff in here will be dependant on the state
-            UserAnnotation()
-        }
+        Map(position: $cameraPosition) {
+                    ForEach(vm.poi, id: \.name) { poi in
+                        
+                        Annotation(poi.name, coordinate: CLLocationCoordinate2D(latitude: poi.coordinates.latitude, longitude: poi.coordinates.longitude)) {
+                            VStack {
+                                Image(systemName: "mappin.circle.fill")
+                                    .foregroundStyle(.red)
+                                    .font(.title)
+                                Text(poi.name)
+                                    .font(.caption)
+                                    .foregroundColor(.primary)
+                            }
+                            .onAppear {
+                                print("Appearing \(poi.name)")
+                            }
+                        }
+                        
+                    }
+                }
         .blur(radius: blurRadius)
         .ignoresSafeArea()
         .overlay {
