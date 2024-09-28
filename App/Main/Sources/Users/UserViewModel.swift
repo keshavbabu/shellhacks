@@ -56,12 +56,15 @@ struct User: Decodable {
     }
 }
 @Observable
-public class UserViewModel: ObservableObject {
-    public init() {}
+public class UserViewModel: NSObject, CLLocationManagerDelegate {
+    public override init() {}
     var userData: User? = nil
     var location: Coordinates? = nil
     private let manager = CLLocationManager()
     public func fetchUsers() {
+        manager.delegate = self
+        manager.requestWhenInUseAuthorization()
+        manager.startUpdatingLocation()
         Firestore.firestore().collection("users").document("Dq7BnKSxkF34duMPHNb4").addSnapshotListener { snapshot, error in
             if let snapshot = snapshot {
                 let user = try! snapshot.data(as: User.self)
@@ -71,7 +74,7 @@ public class UserViewModel: ObservableObject {
         
     }
     // Location manager shit
-        func locationManager(
+    public func locationManager(
             _ manager: CLLocationManager,
             didUpdateLocations locations: [CLLocation]
         ) {
@@ -82,11 +85,11 @@ public class UserViewModel: ObservableObject {
             }
         }
         
-        func locationManager(_ manager: CLLocationManager, didFailWithError error: any Error) {
+        public func locationManager(_ manager: CLLocationManager, didFailWithError error: any Error) {
             print("bruh: \(error)")
         }
         
-        func locationManager(_ manager: CLLocationManager, didChangeAuthorization status: CLAuthorizationStatus) {
+        public func locationManager(_ manager: CLLocationManager, didChangeAuthorization status: CLAuthorizationStatus) {
             switch status {
             case .restricted,.denied,.notDetermined:
                 print("failed")

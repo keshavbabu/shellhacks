@@ -23,6 +23,10 @@ struct EvacView: View {
                     .font(.title)
                     .foregroundColor(.red)
             }
+                .onAppear {
+                    userViewModel.fetchUsers()
+                    print("Lat: \(userViewModel.location?.latitude ?? 0), Long: \(userViewModel.location?.longitude ?? 0)")
+                }
         ) .onTapGesture {
             // keshav code
             guard let url = URL(string: "https://shellhacks.keshavbabu.com") else {
@@ -37,8 +41,8 @@ struct EvacView: View {
             let json: [String: Any] = [
                 "user_id": "Dq7BnKSxkF34duMPHNb4",
                 "coordinates": [
-                    "longitude": userViewModel.location?.latitude,
-                    "latitude": userViewModel.location?.longitude
+                    "longitude": userViewModel.location?.longitude,
+                    "latitude": userViewModel.location?.latitude
                 ]
             ]
             
