@@ -8,12 +8,13 @@ import SwiftUI
 import MapKit
 
 public struct ContentView: View {
-    @EnvironmentObject var userViewModel: UserViewModel
+    @Environment(UserViewModel.self) var userViewModel: UserViewModel
+    public init() {}
     
     public var body: some View {
         VStack {
             if let user = userViewModel.userData {
-                switch EvacuateState(rawValue: user.state) {
+                switch user.status {
                 case .evacuate:
                     EvacView()
                 case .collaborating:
@@ -22,8 +23,6 @@ public struct ContentView: View {
                     WhipView()
                 case .scooping:
                     ScoopView()
-                default:
-                    Text("Unknown state")
                 }
             } else {
                 Text("Loading user data...")

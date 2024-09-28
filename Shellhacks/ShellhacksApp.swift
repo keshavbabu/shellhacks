@@ -12,7 +12,7 @@ import Main
 struct ShellhacksApp: App {
     @UIApplicationDelegateAdaptor(AppDelegate.self) var delegate
     @State var deeplinkRouter = DeeplinkRouter()
-    
+    @State var userViewModel = UserViewModel()
     init() {
         delegate.deeplinkRouter = deeplinkRouter
     }
@@ -21,6 +21,7 @@ struct ShellhacksApp: App {
         WindowGroup {
             ContentView()
                 .environment(deeplinkRouter)
+                .environment(userViewModel)
         }
     }
 }
