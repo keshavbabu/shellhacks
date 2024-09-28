@@ -71,10 +71,12 @@ class POIViewModel {
                 switch r {
                 case .success(let poi):
                     return poi
-                case .failure:
+                case .failure(let error):
+                    print(error)
                     return nil
                 }
             }
+            print(poi)
         }
         
     }
