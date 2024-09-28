@@ -59,6 +59,8 @@ struct User: Decodable {
 public class UserViewModel: ObservableObject {
     public init() {}
     var userData: User? = nil
+    var location: Coordinates? = nil
+    private let manager = CLLocationManager()
     public func fetchUsers() {
         Firestore.firestore().collection("users").document("Dq7BnKSxkF34duMPHNb4").addSnapshotListener { snapshot, error in
             if let snapshot = snapshot {
@@ -68,4 +70,28 @@ public class UserViewModel: ObservableObject {
         }
         
     }
+    // Location manager shit
+        func locationManager(
+            _ manager: CLLocationManager,
+            didUpdateLocations locations: [CLLocation]
+        ) {
+            print("bruh; \(locations)")
+            if let location = locations.last {
+                self.location = Coordinates(latitude: location.coordinate.latitude, longitude: location.coordinate.longitude)
+                manager.stopUpdatingLocation()
+            }
+        }
+        
+        func locationManager(_ manager: CLLocationManager, didFailWithError error: any Error) {
+            print("bruh: \(error)")
+        }
+        
+        func locationManager(_ manager: CLLocationManager, didChangeAuthorization status: CLAuthorizationStatus) {
+            switch status {
+            case .restricted,.denied,.notDetermined:
+                print("failed")
+            default:
+                manager.startUpdatingLocation()
+            }
+        }
 }

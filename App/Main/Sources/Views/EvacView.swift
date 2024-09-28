@@ -8,6 +8,8 @@ import SwiftUI
 import MapKit
 
 struct EvacView: View {
+    
+    @Environment(UserViewModel.self) var userViewModel: UserViewModel
     var body: some View {
         Map().blur(radius: 10)
         .overlay(
@@ -21,13 +23,54 @@ struct EvacView: View {
                     .font(.title)
                     .foregroundColor(.red)
             }
-        ).onTapGesture {
+        ) .onTapGesture {
             // keshav code
+            guard let url = URL(string: "https://shellhacks.keshavbabu.com") else {
+                print("Invalid URL")
+                return
+            }
+
+            var request = URLRequest(url: url)
+            request.setValue("application/json", forHTTPHeaderField: "Content-Type")
+            request.httpMethod = "POST"
             
+            let json: [String: Any] = [
+                "user_id": "Dq7BnKSxkF34duMPHNb4",
+                "coordinates": [
+                    "longitude": userViewModel.location?.latitude,
+                    "latitude": userViewModel.location?.longitude
+                ]
+            ]
+            
+            do {
+                let jsonData = try JSONSerialization.data(withJSONObject: json, options: [])
+                request.httpBody = jsonData
+            } catch {
+                print("Failed to serialize JSON: \(error.localizedDescription)")
+                return
+            }
+            
+            let task = URLSession.shared.dataTask(with: request) { data, response, error in
+                if let error = error {
+                    print("Error: \(error.localizedDescription)")
+                    return
+                }
+                
+                guard let data = data else {
+                    print("No data received")
+                    return
+                }
+                
+                do {
+                    if let responseJSON = try JSONSerialization.jsonObject(with: data, options: []) as? [String: Any] {
+                        print(responseJSON)
+                    }
+                } catch {
+                    print("Failed to parse JSON: \(error.localizedDescription)")
+                }
+            }
+            
+            task.resume()
         }
-        
-//        func buttonAction(){
-//            userActivity(String, collaborating)
-//        }
     }
 }
