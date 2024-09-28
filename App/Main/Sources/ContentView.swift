@@ -8,15 +8,19 @@
 import SwiftUI
 
 public struct ContentView: View {
+    @State var vm = POIViewModel()
     public init() {}
     public var body: some View {
         VStack {
             Image(systemName: "globe")
                 .imageScale(.large)
                 .foregroundStyle(.tint)
-            Text("Hello, world!")
+            Text(vm.hurricaine?.hurricaine.rawValue.description ?? "bruh")
         }
         .padding()
+        .onAppear {
+            vm.fetchData()
+        }
     }
 }
 

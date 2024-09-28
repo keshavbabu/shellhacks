@@ -12,9 +12,21 @@ let package = Package(
             targets: ["Main"]
         ),
     ],
+    dependencies: [
+        .package(
+            url: "https://github.com/firebase/firebase-ios-sdk",
+            .upToNextMajor(from: "11.20.0")
+        ),
+    ],
     targets: [
         .target(
-            name: "Main"
+            name: "Main",
+            dependencies: [
+                .product(
+                    name: "FirebaseFirestore",
+                    package: "firebase-ios-sdk"
+                ),
+            ]
         )
     ]
 )
