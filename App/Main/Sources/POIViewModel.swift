@@ -8,6 +8,7 @@
 import FirebaseFirestore
 import SwiftUI
 import Observation
+import MapKit
 
 enum Hurricaine: Int, Codable {
     case none = 0
@@ -22,7 +23,10 @@ struct HurricaineDoc: Codable {
 @Observable
 class POIViewModel {
     var hurricaine: HurricaineDoc? = nil
+    private let manager = CLLocationManager()
+    
     func fetchData() {
+        manager.requestWhenInUseAuthorization()
         Firestore.firestore().collection("0").document("0")
             .addSnapshotListener { snapshot, error in
                 guard let snapshot = snapshot else {

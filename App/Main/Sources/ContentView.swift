@@ -44,6 +44,7 @@ public struct ContentView: View {
     public var body: some View {
         Map {
             // stuff in here will be dependant on the state
+            UserAnnotation()
         }
         .ignoresSafeArea()
         .overlay {
