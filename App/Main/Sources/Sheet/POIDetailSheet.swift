@@ -16,16 +16,22 @@ public struct POIDetailSheet: View {
         VStack(alignment: .leading) {
             if let nearestPOI = poig {
                 Text("\(nearestPOI.name)").font(.title).bold().multilineTextAlignment(.center)
+                Divider()
+                HStack {
+                    Image(systemName: "mappin.circle.fill")
+                    Text("\(nearestPOI.address)").font(.title3).fontWeight(.semibold).multilineTextAlignment(.leading)
+                }
                 Spacer()
-                Text("Address: \(nearestPOI.address)").font(.subheadline).fontWeight(.light)
                 Text("Accommodations: ")
-                ForEach(nearestPOI.extra, id: \.self) { item in
-                    HStack {
-                        switch item {
-                        case .petFriendly:
-                            Image(systemName: "dog.fill")
+                List {
+                    ForEach(nearestPOI.extra, id: \.self) { item in
+                        HStack {
+                            switch item {
+                            case .petFriendly:
+                                Image(systemName: "dog.fill")
+                            }
+                            Text(item.rawValue)
                         }
-                        Text(item.rawValue)
                     }
                 }
                 Spacer()
