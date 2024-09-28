@@ -20,9 +20,21 @@ struct HurricaineDoc: Codable {
     var hurricaine: Hurricaine
 }
 
+struct Coordinates: Codable {
+    let latitude: Double
+    let longitude: Double
+}
+
+struct POI: Codable {
+    let address: String
+    let name: String
+    let coordinates: Coordinates
+}
+
 @Observable
 class POIViewModel {
     var hurricaine: HurricaineDoc? = nil
+    var poi: [POI] = []
     private let manager = CLLocationManager()
     
     func fetchData() {
@@ -39,10 +51,31 @@ class POIViewModel {
                 
                 switch doc {
                 case .success(let doc):
-                    self.hurricaine = HurricaineDoc(hurricaine: .none)
+                    self.hurricaine = doc
                 case .failure(let error):
                     print("decoding error: \(error)")
                 }
             }
+        
+        Firestore.firestore().collection("poi").addSnapshotListener { snapshot, error in
+            guard let snapshot = snapshot else {
+                print("snapshot error: \(error)")
+                return
+            }
+            
+            let poi = snapshot.documents.compactMap { s in
+                let r = Result {
+                    try s.data(as: POI.self)
+                }
+                
+                switch r {
+                case .success(let poi):
+                    return poi
+                case .failure:
+                    return nil
+                }
+            }
+        }
+        
     }
 }
