@@ -161,7 +161,7 @@ public struct ContentView: View {
         .sheet(item: $selectedPOI) { poi in
             if let location = vm.location {
                 let coordinates = Coordinates(latitude: location.latitude, longitude: location.longitude)
-                NavigationSheet(location: coordinates, poi: [poi])
+                POIDetailSheet(location: coordinates, poi: [poi])
                     .presentationDetents([.medium])
             } else {
                 ProgressView()
