@@ -17,13 +17,18 @@ public struct ContentView: View {
         Map {
             // stuff in here will be dependant on the state
         }
+        .ignoresSafeArea()
         .overlay {
             // stuff in here will be dependant on the state
         }
         .overlay(alignment: .top) {
-            
+            HStack {
+                Text("SAFE")
+                  .padding(10)
+                  .background(RoundedRectangle(cornerRadius: 12).fill(Color(UIColor.systemGray5)))
+                  .padding()
+            }
         }
-        .ignoresSafeArea()
         .onAppear {
             vm.fetchData()
         }
