@@ -54,9 +54,26 @@ public struct ContentView: View {
         return 0
     }
     
+    let coordinates = [
+        // 20.037856104272088, -83.56012446431905
+        CLLocationCoordinate2D(latitude: 20.037856104272088, longitude: -83.56012446431905),
+        // 22.280120247380523, -86.07927628636105
+        CLLocationCoordinate2D(latitude: 22.280120247380523, longitude: -86.07927628636105),
+        // 30.392561226076666, -84.29560885292774
+        CLLocationCoordinate2D(latitude: 30.392561226076666, longitude: -84.29560885292774),
+        // 32.88289565183958, -84.09229534686774
+        CLLocationCoordinate2D(latitude: 32.88289565183958, longitude: -84.09229534686774)
+    ]
+
+    let gradient = LinearGradient(colors: [.red, .green, .blue], startPoint: .leading, endPoint: .trailing)
+
+    let stroke = StrokeStyle(lineWidth: 5, lineCap: .round, lineJoin: .round, dash: [10, 10])
+    
     public var body: some View {
         @Bindable var deeplink = self.deeplinkRouter
         Map(position: $cameraPosition, scope: mapScope) {
+            MapPolyline(coordinates: coordinates, contourStyle: .geodesic)
+                .stroke(gradient, style: stroke)
             ForEach(vm.poi, id: \.name) { poi in
                 Annotation(poi.name, coordinate: CLLocationCoordinate2D(latitude: poi.coordinates.latitude, longitude: poi.coordinates.longitude)) {
                     VStack {
@@ -133,14 +150,12 @@ public struct ContentView: View {
                 }
             }
         }
-        .overlay {
-            if showingNav {
-                if let location = vm.location, !vm.poi.isEmpty {
-                    NavigationSheet(location: location, poi: vm.poi)
-                        .presentationDetents([.medium])
-                } else {
-                    ProgressView()
-                }
+        .sheet(isPresented: $showingNav) {
+            if let location = vm.location, !vm.poi.isEmpty {
+                NavigationSheet(location: location, poi: vm.poi)
+                    .presentationDetents([.medium])
+            } else {
+                ProgressView()
             }
         }
         .sheet(item: $selectedPOI) { poi in
