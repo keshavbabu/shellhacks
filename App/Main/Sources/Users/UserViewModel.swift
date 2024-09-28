@@ -12,7 +12,7 @@ import MapKit
 import Foundation
 
 struct Constants {
-    static let userID = "J5wzQpq1QIexIGi7D2mJ"
+    static let userID = "Dq7BnKSxkF34duMPHNb4"
 }
 
 enum EvacuateState: Int, Codable {
@@ -71,8 +71,12 @@ public class UserViewModel: NSObject, CLLocationManagerDelegate {
         manager.startUpdatingLocation()
         Firestore.firestore().collection("users").document(Constants.userID).addSnapshotListener { snapshot, error in
             if let snapshot = snapshot {
-                let user = try! snapshot.data(as: User.self)
-                self.userData = user
+                do {
+                     let user = try snapshot.data(as: User.self)
+                     self.userData = user
+                 } catch {
+                     print("error: \(error)")
+                 }
             }
         }
         
