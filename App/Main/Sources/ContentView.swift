@@ -61,9 +61,6 @@ public struct ContentView: View {
                         Image(systemName: "mappin.circle.fill")
                             .foregroundStyle(.red)
                             .font(.title)
-                        Text(poi.name)
-                            .font(.caption)
-                            .foregroundColor(.primary)
                     }
                     .onAppear {
                         print("Appearing \(poi.name)")

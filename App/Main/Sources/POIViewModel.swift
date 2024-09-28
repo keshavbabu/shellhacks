@@ -38,6 +38,7 @@ struct POI: Codable {
     let coordinates: Coordinates
     let status: Status
     let medicalEquipment: [String]
+    let extra: [String]
     
     enum CodingKeys: String, CodingKey {
         case address
@@ -45,6 +46,7 @@ struct POI: Codable {
         case coordinates
         case status
         case medicalEquipment = "medical_equipment"
+        case extra
     }
 }
 
