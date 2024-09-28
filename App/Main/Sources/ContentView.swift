@@ -52,7 +52,6 @@ public struct ContentView: View {
     public var body: some View {
         Map(position: $cameraPosition) {
                     ForEach(vm.poi, id: \.name) { poi in
-                        
                         Annotation(poi.name, coordinate: CLLocationCoordinate2D(latitude: poi.coordinates.latitude, longitude: poi.coordinates.longitude)) {
                             VStack {
                                 Image(systemName: "mappin.circle.fill")

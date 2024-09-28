@@ -63,7 +63,7 @@ class POIViewModel {
                 return
             }
             
-            let poi = snapshot.documents.compactMap { s in
+            self.poi = snapshot.documents.compactMap { s in
                 let r = Result {
                     try s.data(as: POI.self)
                 }
@@ -76,7 +76,6 @@ class POIViewModel {
                     return nil
                 }
             }
-            print(poi)
         }
         
     }
