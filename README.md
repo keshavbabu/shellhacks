@@ -1,4 +1,4 @@
-## hurrycane: Evacuate diaster safely with seamless ride sharing.
+## hurrycane: evacuate diaster safely with seamless ride sharing.
 
 ## Inspiration
 
