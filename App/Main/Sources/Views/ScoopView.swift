@@ -21,13 +21,18 @@ struct ScoopView: View {
     }
 
     var body: some View {
-        VStack() {
+        VStack {
             if let user = userViewModel.userData {
                 if let timeLeft = user.timeToPickUp {
-                    Text("Be Ready in \(timeLeft) minutes")
-                        .bold()
-                        .font(.title3)
-                        
+                    if timeLeft > 0 {
+                        Text("Be Ready in \(timeLeft) minutes")
+                            .bold()
+                            .font(.title3)
+                    } else {
+                        Text("Driver is here. Stay Safe.")
+                            .bold()
+                            .font(.title3)
+                    }
                 }
                 Divider()
                 List {
@@ -37,11 +42,11 @@ struct ScoopView: View {
                                 switch phase {
                                 case .empty:
                                     ProgressView()
-                                        .frame(width: 75, height: 90)
+                                        .frame(width: 50, height: 50)
                                 case .success(let image):
                                     image
                                         .resizable()
-                                        .frame(width: 75, height: 90)
+                                        .frame(width: 50, height: 50)
                                         .clipShape(Circle())
                                 case .failure:
                                     Image(systemName: "photo")
@@ -69,11 +74,11 @@ struct ScoopView: View {
                                 switch phase {
                                 case .empty:
                                     ProgressView()
-                                        .frame(width: 75, height: 90)
+                                        .frame(width: 50, height: 50)
                                 case .success(let image):
                                     image
                                         .resizable()
-                                        .frame(width: 75, height: 90)
+                                        .frame(width: 50, height: 50)
                                         .clipShape(Circle())
                                 case .failure:
                                     Image(systemName: "photo")

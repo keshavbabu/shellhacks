@@ -15,7 +15,7 @@ public struct ContentView: View {
                 if user.status == .evacuate {
                     EvacView()
                 } else {
-                    MapView(userState: user.status)
+                    MapView(user: user)
                         .edgesIgnoringSafeArea(.all)
                         .onTapGesture {
                             isPresented = true
@@ -42,15 +42,18 @@ public struct ContentView: View {
                                     case .collaborating:
                                         CollabView()
                                             .padding()
-                                            .presentationDetents([.fraction(0.40)])
+                                            .presentationDetents([.fraction(0.30), .large])
+                                            .presentationBackgroundInteraction(.enabled)
                                     case .whipping:
                                         WhipView()
                                             .padding()
-                                            .presentationDetents([.fraction(0.40)])
+                                            .presentationDetents([.fraction(0.30), .large])
+                                            .presentationBackgroundInteraction(.enabled)
                                     case .scooping:
                                         ScoopView()
                                             .padding()
-                                            .presentationDetents([.fraction(0.50)])
+                                            .presentationDetents([.fraction(0.40), .large])
+                                            .presentationBackgroundInteraction(.enabled)
                                     default:
                                         EmptyView()
                                     }
@@ -60,7 +63,7 @@ public struct ContentView: View {
 
                                 Spacer()
                             }
-                            .padding()
+                            
                         }
 
                 }

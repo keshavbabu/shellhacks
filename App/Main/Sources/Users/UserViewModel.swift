@@ -11,9 +11,9 @@ import Observation
 import MapKit
 import Foundation
 
-struct Constants {
-    static let userID = "Tyyp0mAmn9tzaKFhTSxo"
-}
+//struct Constants {
+//    static let userID = "Tyyp0mAmn9tzaKFhTSxo"
+//}
 
 enum EvacuateState: Int, Codable {
     case evacuate = 0
@@ -22,12 +22,17 @@ enum EvacuateState: Int, Codable {
     case scooping = 3
 }
 
-struct Coordinates: Decodable {
+struct Coordinates: Decodable, Equatable {
     let latitude: Double
     let longitude: Double
+    
+    func toCLLocationCoordinates() -> CLLocationCoordinate2D {
+        print("coords: \(self.latitude) \(self.longitude)")
+        return CLLocationCoordinate2D(latitude: self.latitude, longitude: self.longitude)
+    }
 }
 
-struct Evacuee: Decodable, Identifiable {
+struct Evacuee: Decodable, Identifiable, Equatable {
     let id: String
     let name: String
     let pfp: String
@@ -61,7 +66,11 @@ struct User: Decodable {
 }
 @Observable
 public class UserViewModel: NSObject, CLLocationManagerDelegate {
-    public override init() {}
+    var userID: String
+    public init(userID: String) {
+        self.userID = userID
+        print(userID)
+    }
     var userData: User? = nil
     var location: Coordinates? = nil
     private let manager = CLLocationManager()
@@ -69,7 +78,7 @@ public class UserViewModel: NSObject, CLLocationManagerDelegate {
         manager.delegate = self
         manager.requestWhenInUseAuthorization()
         manager.startUpdatingLocation()
-        Firestore.firestore().collection("users").document(Constants.userID).addSnapshotListener { snapshot, error in
+        Firestore.firestore().collection("users").document(userID).addSnapshotListener { snapshot, error in
             if let snapshot = snapshot {
                 do {
                      let user = try snapshot.data(as: User.self)
@@ -89,7 +98,6 @@ public class UserViewModel: NSObject, CLLocationManagerDelegate {
             print("bruh; \(locations)")
             if let location = locations.last {
                 self.location = Coordinates(latitude: location.coordinate.latitude, longitude: location.coordinate.longitude)
-                manager.stopUpdatingLocation()
             }
         }
         

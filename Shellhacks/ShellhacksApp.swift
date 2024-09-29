@@ -12,8 +12,10 @@ import Main
 struct ShellhacksApp: App {
     @UIApplicationDelegateAdaptor(AppDelegate.self) var delegate
     @State var deeplinkRouter = DeeplinkRouter()
-    @State var userViewModel = UserViewModel()
+    @State var userViewModel: UserViewModel
     init() {
+        //UserDefaults.standard.set("Dq7BnKSxkF34duMPHNb4", forKey: "userID")
+        userViewModel = UserViewModel(userID: UserDefaults.standard.value(forKey: "userID") as! String)
         delegate.deeplinkRouter = deeplinkRouter
     }
     
