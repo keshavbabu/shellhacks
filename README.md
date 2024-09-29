@@ -1,12 +1,12 @@
-## Hurrycane: Evacuate diaster safely with seamless ride sharing.
+## hurrycane: Evacuate diaster safely with seamless ride sharing.
 
 ## Inspiration
 
-Our inspiration came from witnessing many college students in Tampa who were stranded without cars during the most recent hurricane. As a group familiar with the challenges of being car-less, we saw firsthand how quickly a lack of transportation turns into a critical issue during disasters. This highlighted the urgent need for a community-driven solution that ensures everyone can evacuate safely, regardless of their access to a vehicle.
+Our inspiration came from witnessing many college students in Tampa who were stranded without cars during the most recent hurricane. As a group familiar with the challenges of being carless, we saw firsthand how quickly a lack of transportation turns into a critical issue during disasters. This highlighted the urgent need for a community-driven solution that ensures everyone can evacuate safely, regardless of their access to a vehicle.
 
 ## What it does
 
-HurryCane is a disaster evacuation ride-sharing app that connects people in need with volunteer drivers during emergencies. It groups users based on their location to find the quickest evacuation option with others nearby. The app leverages community support to ensure no one is left stranded during a crisis.
+hurrycane is a disaster evacuation ride-sharing app that connects people in need with volunteer drivers during emergencies. It groups users based on their location to find the quickest evacuation option with others nearby. The app leverages community support to ensure no one is left stranded during a crisis.
 
 ## How we built it
 
@@ -23,6 +23,7 @@ We’re proud of creating a platform that can make a real difference in emergenc
 ## What we learned
 
 We learned about the complexities of emergency logistics and the critical role of community-driven solutions. Our team deepened its understanding of accessibility needs and the importance of designing technology that works for everyone, especially during high-stress situations.
-## What's next for HurryCane
 
-Next, we plan to expand HurryCane to include partnerships with local governments and emergency services to enhance the app’s reach and reliability. We’ll also focus on refining our predictive algorithms for better grouping during different types of disasters, and we aim to launch in flood-prone areas before expanding to regions affected by wildfires, hurricanes, and other emergencies.
+## What's next for hurrycane
+
+Next, we plan to expand hurrycane to include partnerships with local governments and emergency services to enhance the app’s reach and reliability. We’ll also focus on refining our predictive algorithms for better grouping during different types of disasters, and we aim to launch in flood-prone areas before expanding to regions affected by wildfires, hurricanes, and other emergencies.
