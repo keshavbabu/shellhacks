@@ -11,15 +11,13 @@ struct WhipView: View {
     @State var Friends: [Evacuee] = []
 
     var body: some View {
-        VStack(spacing: 2) {
+        VStack() {
             Text("Finding a Driver...")
                 .font(.title)
                 .bold()
-                .padding()
             
             Text("Evacuees 🏃‍♂️")
                 .frame(maxWidth: .infinity, alignment: .leading)
-                .padding(.leading)
                 .font(.title2)
             Divider()
             List {
@@ -48,7 +46,6 @@ struct WhipView: View {
                 }
             }
             .listStyle(PlainListStyle())
-            .padding(.top, 0)
         }
         .onAppear {
             userViewModel.fetchUsers()

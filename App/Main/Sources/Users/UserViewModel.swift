@@ -12,7 +12,7 @@ import MapKit
 import Foundation
 
 struct Constants {
-    static let userID = "Dq7BnKSxkF34duMPHNb4"
+    static let userID = "Tyyp0mAmn9tzaKFhTSxo"
 }
 
 enum EvacuateState: Int, Codable {

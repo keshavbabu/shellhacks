@@ -21,13 +21,13 @@ struct ScoopView: View {
     }
 
     var body: some View {
-        VStack(spacing: 0) {
+        VStack() {
             if let user = userViewModel.userData {
                 if let timeLeft = user.timeToPickUp {
                     Text("Be Ready in \(timeLeft) minutes")
                         .bold()
                         .font(.title3)
-                        .padding(.vertical, 16)
+                        
                 }
                 Divider()
                 List {
@@ -50,7 +50,7 @@ struct ScoopView: View {
                                     EmptyView()
                                 }
                             }
-                            .padding(.trailing, 16)
+                            
                             VStack(alignment: .leading) {
                                 Text(friend.name)
                                     .font(.title3)
@@ -60,7 +60,7 @@ struct ScoopView: View {
                                     .font(.subheadline)
                             }
                         }
-                        .padding(.vertical, 8)
+                        
                     }
 
                     ForEach(waitingFriends) { friend in
@@ -82,7 +82,7 @@ struct ScoopView: View {
                                     EmptyView()
                                 }
                             }
-                            .padding(.trailing, 16)
+                           
                             VStack(alignment: .leading) {
                                 Text(friend.name)
                                     .font(.title3)
@@ -92,7 +92,7 @@ struct ScoopView: View {
                                     .font(.subheadline)
                             }
                         }
-                        .padding(.vertical, 8)
+                        
                     }
                 }
                 .listStyle(PlainListStyle())
