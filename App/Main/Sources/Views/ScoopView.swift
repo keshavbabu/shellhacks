@@ -5,11 +5,20 @@
 //  Created by Shaheer Khan on 9/28/24.
 //
 import SwiftUI
-
 struct ScoopView: View {
     @Environment(UserViewModel.self) var userViewModel: UserViewModel
-    @State private var pickedUpFriends: [Evacuee] = []
-    @State private var waitingFriends: [Evacuee] = []
+    
+    var pickedUpFriends: [Evacuee] {
+        userViewModel.userData?.group?.filter({ e in
+            userViewModel.userData?.pickedUp?.contains(e.id) ?? false
+        }) ?? []
+    }
+    
+    var waitingFriends: [Evacuee] {
+        userViewModel.userData?.group?.filter({ e in
+            !(userViewModel.userData?.pickedUp?.contains(e.id) ?? false)
+        }) ?? []
+    }
 
     var body: some View {
         VStack(spacing: 0) {
@@ -73,7 +82,7 @@ struct ScoopView: View {
                                     EmptyView()
                                 }
                             }
-                            .padding(.trailing, 16) 
+                            .padding(.trailing, 16)
                             VStack(alignment: .leading) {
                                 Text(friend.name)
                                     .font(.title3)
@@ -87,15 +96,11 @@ struct ScoopView: View {
                     }
                 }
                 .listStyle(PlainListStyle())
-            }
-        }
-        .onAppear {
-            userViewModel.fetchUsers()
-            if let user = userViewModel.userData {
-                let friends = user.group ?? []
-                let pickedUpIds = user.pickedUp ?? []
-                pickedUpFriends = friends.filter { pickedUpIds.contains($0.id) }
-                waitingFriends = friends.filter { !pickedUpIds.contains($0.id) }
+                .onChange(of: userViewModel.userData?.pickedUp) { _ in
+                    print("userViewModel.userData change")
+                    print(userViewModel.userData?.pickedUp)
+                   
+                }
             }
         }
     }
